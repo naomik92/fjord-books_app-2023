@@ -44,6 +44,8 @@ en:
       picture: "Picture"
     index:
       heading: "Books"
+    new:
+      heading: "New book"
     edit:
       heading: "Editing book"
     create:

@@ -13,6 +13,8 @@ ja:
       picture: "画像"
     index:
       heading: "本の一覧"
+    new:
+      heading: "新しい本"
     edit:
       heading: "本の編集"
     create:

@@ -1,24 +1,4 @@
-ja:      
-  show_this_book: "この本を表示"
-  edit_this_book: "この本を編集"
-  back_to_books: "本の一覧に戻る"
-  new_book: "新しい本を作成"
-  destroy_this_book: "この本を削除"
-  books:
-    book:
-    
-    index:
-      heading: "本の一覧"
-    new:
-      heading: "新しい本"
-    edit:
-      heading: "本の編集"
-    create:
-      notice: "本を登録しました"
-    update:
-      notice: "本を更新しました"
-    destroy:
-      notice: "本を削除しました"
+ja:
   activerecord:
     errors:
       messages:
@@ -34,3 +14,20 @@ ja:
         memo: "メモ"
         author: "著者"
         picture: "画像"
+  defaults:
+    show: "この%{item}を表示"
+    edit: "この%{item}を編集"
+    back_to_list: "%{item}の一覧に戻る"
+    new: "新しい%{item}を作成"
+    destroy: "この%{item}を削除"
+    message:
+      created: "%{item}を登録しました"
+      updated: "%{item}を更新しました"
+      destroyed: "%{item}を削除しました"
+  books:   
+    index:
+      heading: "本の一覧"
+    new:
+      heading: "新しい本"
+    edit:
+      heading: "本の編集"

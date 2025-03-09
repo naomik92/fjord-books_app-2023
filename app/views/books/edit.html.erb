@@ -6,5 +6,5 @@
 
 <nav class="page-nav">
   <%= link_to t('defaults.show', item: Book.model_name.human), @book %> |
-  <%= link_to t('defaults.back_to_list', item: Book.model_name.human), books_path %>
+  <%= link_to t('defaults.back_to_list', item: Book.model_name.human(count: 2)), books_path %>
 </nav>

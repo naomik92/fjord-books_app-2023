@@ -1,10 +1,11 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @book %>
-
-<div>
-  <%= link_to "Edit this book", edit_book_path(@book) %> |
-  <%= link_to "Back to books", books_path %>
-
-  <%= button_to "Destroy this book", @book, method: :delete %>
+<div class="show-item">
+  <%= render @book %>
 </div>
+
+<nav class="page-nav">
+  <%= link_to t('defaults.edit', item: Book.model_name.human), edit_book_path(@book) %> |
+  <%= link_to t('defaults.back_to_list', item: Book.model_name.human.pluralize(I18n.locale)), books_path %>
+  <%= button_to t('defaults.destroy', item: Book.model_name.human), @book, method: :delete %>
+</nav>

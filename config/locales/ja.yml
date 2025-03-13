@@ -1,0 +1,33 @@
+ja:
+  activerecord:
+    errors:
+      messages:
+        record_invalid: 'バリデーションに失敗しました: %{errors}'
+        restrict_dependent_destroy:
+          has_one: "%{record}が存在しているので削除できません"
+          has_many: "%{record}が存在しているので削除できません"
+    models:
+      book: "本"
+    attributes:
+      book:
+        title: "タイトル"
+        memo: "メモ"
+        author: "著者"
+        picture: "画像"
+  defaults:
+    show: "この%{item}を表示"
+    edit: "この%{item}を編集"
+    back_to_list: "%{item}の一覧に戻る"
+    new: "新しい%{item}を作成"
+    destroy: "この%{item}を削除"
+    message:
+      created: "%{item}を登録しました"
+      updated: "%{item}を更新しました"
+      destroyed: "%{item}を削除しました"
+  books:   
+    index:
+      heading: "本の一覧"
+    new:
+      heading: "新しい本"
+    edit:
+      heading: "本の編集"

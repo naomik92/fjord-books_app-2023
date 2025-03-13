@@ -1,9 +1,9 @@
-<h1>New book</h1>
+<h1><%= t '.heading' %></h1>
 
 <%= render "form", book: @book %>
 
 <br>
 
-<div>
-  <%= link_to "Back to books", books_path %>
-</div>
+<nav class="page-nav">
+  <%= link_to t('defaults.back_to_list', item: Book.model_name.human.pluralize(I18n.locale)), books_path %>
+</nav>

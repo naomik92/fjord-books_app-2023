@@ -1,0 +1,12 @@
+<h1>Users List</h1>
+
+<div id="users" class="index-items">
+  <% @users.each do |user| %>
+    <div class="index-item">
+      <%= user.email %>
+      <p>
+        <%= link_to 'Show profile', user_path(user) %>
+      </p>
+    </div>
+  <% end %>
+</div>

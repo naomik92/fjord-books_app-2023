@@ -86,3 +86,7 @@ gem 'kaminari'
 
 gem 'devise'
 gem 'devise-i18n'
+
+group :development do
+  gem 'letter_opener_web', '~> 3.0'
+end

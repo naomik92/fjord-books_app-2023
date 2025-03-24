@@ -90,3 +90,5 @@ gem 'devise-i18n'
 group :development do
   gem 'letter_opener_web', '~> 3.0'
 end
+
+gem 'rails-i18n', '~> 7.0.0'

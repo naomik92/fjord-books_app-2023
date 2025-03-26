@@ -183,7 +183,11 @@ ja:
     pm: 午後
   views:
     common:
+      log_in: ログイン
+      sign_up: アカウント登録
+      forgot_your_password: パスワードを忘れましたか？
       show: "この%{name}を表示"
+      show_index: "%{name}の一覧を表示"
       edit: "この%{name}を編集"
       destroy: "この%{name}を削除"
       new: "%{name}の新規作成"

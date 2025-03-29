@@ -31,7 +31,7 @@ ja:
     models:
       user:
         other: ユーザー
-  devise:
+  users:
     confirmations:
       confirmed: メールアドレスが確認できました。
       new:

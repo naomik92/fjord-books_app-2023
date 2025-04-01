@@ -16,7 +16,7 @@
         <%= t('views.common.logged_in_as', name: current_user.email) %><br>
         <%= link_to t('views.common.show_index', name: i18n_pluralize(User.model_name.human.downcase)), users_path %> |
         <%= link_to t('views.common.edit_profile'), edit_user_registration_path %> |
-        <%= link_to t('views.common.logout'), destroy_user_session_path, data: { turbo_method: :delete }  %>
+        <%= link_to t('views.common.logout'), destroy_user_session_path, data: { turbo_method: :delete } %>
       <% else %>
         <%= link_to t('views.common.sign_up'), new_user_registration_path %> |
         <%= link_to t('views.common.log_in'), new_user_session_path %>

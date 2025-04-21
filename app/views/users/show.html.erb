@@ -19,5 +19,6 @@
     <%= @user.email %>
   </p>
 
-  <%= link_to t('devise.shared.links.back'), :back %>
+  <%= link_to t('views.common.back', name: i18n_pluralize(User.model_name.human.downcase)), users_path %>
+
 </div>

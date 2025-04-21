@@ -9,8 +9,6 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: %i[postcode address self_introduction])
-    devise_parameter_sanitizer.permit(:account_update) do |user_params|
-      user_params.permit(:postcode, :address, :self_introduction, :email, :password, :password_confirmation, :current_password)
-    end
+    devise_parameter_sanitizer.permit(:account_update, keys: %i[postcode address self_introduction])
   end
 end

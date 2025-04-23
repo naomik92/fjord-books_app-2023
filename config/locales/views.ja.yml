@@ -1,0 +1,9 @@
+ja:
+  views:
+    common:
+      log_in: ログイン
+      sign_up: アカウント登録
+      logged_in_as: "%{name}としてログインしています"
+      logout: "ログアウト"
+      show_index: "%{name}の一覧を表示"
+      edit_profile: "プロフィールを編集"

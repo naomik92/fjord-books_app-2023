@@ -17,11 +17,15 @@ class ReportsController < ApplicationController
   end
 
   # GET /reports/1/edit
-  def edit; end
+  def edit
+    @report = Report.find(params[:id])
+  end
 
   # POST /reports
   def create
     @report = Report.new(report_params)
+    @report.user_id = current_user.id
+    @report.save
 
     respond_to do |format|
       if @report.save
@@ -65,7 +69,7 @@ class ReportsController < ApplicationController
   end
 
   def correct_user
-    @user = User.find(51)
+    @user = User.find(52) #ここを直そう
     redirect_to reports_path unless @user == current_user
   end
 

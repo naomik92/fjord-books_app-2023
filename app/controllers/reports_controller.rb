@@ -22,7 +22,7 @@ class ReportsController < ApplicationController
   end
 
   # POST /reports
-  def create
+  def create # 動いてるんだけど、これで本当にいいのだろうか。
     @report = Report.new(report_params)
     @report.user_id = current_user.id
     @report.save
@@ -38,6 +38,9 @@ class ReportsController < ApplicationController
 
   # PATCH/PUT /reports/1
   def update
+    @report = Report.find(params[:id])
+    @report.update(report_params)
+
     respond_to do |format|
       if @report.update(report_params)
         format.html { redirect_to report_url(@report), notice: t('controllers.common.notice_update', name: Report.model_name.human) }

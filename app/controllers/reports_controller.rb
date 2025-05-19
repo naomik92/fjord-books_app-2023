@@ -11,21 +11,17 @@ class ReportsController < ApplicationController
     @report = Report.find(params[:id])
   end
 
-  # GET /reports/new
   def new
     @report = Report.new
   end
 
-  # GET /reports/1/edit
   def edit
     @report = Report.find(params[:id])
   end
 
-  # POST /reports
-  def create # 動いてるんだけど、これで本当にいいのだろうか。
+  def create
     @report = Report.new(report_params)
     @report.user_id = current_user.id
-    @report.save
 
     respond_to do |format|
       if @report.save
@@ -36,10 +32,8 @@ class ReportsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /reports/1
   def update
     @report = Report.find(params[:id])
-    @report.update(report_params)
 
     respond_to do |format|
       if @report.update(report_params)
@@ -50,7 +44,6 @@ class ReportsController < ApplicationController
     end
   end
 
-  # DELETE /reports/1
   def destroy
     @report.destroy
 
@@ -61,19 +54,14 @@ class ReportsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
-  def set_report
-    @report = Report.find(params[:id])
-  end
-
-  # Only allow a list of trusted parameters through.
   def report_params
     params.require(:report).permit(:title, :description)
   end
 
   def correct_user
-    @user = User.find(52) #ここを直そう
-    redirect_to reports_path unless @user == current_user
+    report = Report.find(params[:id])
+    user = User.find(report.user_id)
+    redirect_to reports_path unless user == current_user
   end
 
 end

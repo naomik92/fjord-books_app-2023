@@ -8,7 +8,7 @@ class ReportsController < ApplicationController
   end
 
   def show
-    @report = Report.find(params[:id])
+    set_report
   end
 
   def new
@@ -16,7 +16,7 @@ class ReportsController < ApplicationController
   end
 
   def edit
-    @report = Report.find(params[:id])
+    set_report
   end
 
   def create
@@ -33,7 +33,7 @@ class ReportsController < ApplicationController
   end
 
   def update
-    @report = Report.find(params[:id])
+    set_report
 
     respond_to do |format|
       if @report.update(report_params)
@@ -53,6 +53,10 @@ class ReportsController < ApplicationController
   end
 
   private
+
+  def set_report
+    @report = Report.find(params[:id])
+  end
 
   def report_params
     params.require(:report).permit(:title, :description)

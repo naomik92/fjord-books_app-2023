@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ReportsController < ApplicationController
-  before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :correct_user, only: %i[edit update destroy]
 
   def index
     @reports = Report.order(:id).page(params[:page])
@@ -9,6 +9,7 @@ class ReportsController < ApplicationController
 
   def show
     set_report
+    @comments = @report.comments
   end
 
   def new

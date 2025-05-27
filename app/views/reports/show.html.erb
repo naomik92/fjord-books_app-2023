@@ -7,8 +7,15 @@
 <% if @comments.any? %>
   <% @comments.each do |comment| %>
     <div>
-      <p><strong><%= comment.user.name %></strong></p>
-      <p><%= comment.comment %></p>
+      <p>
+        <strong><%= comment.user.name == "" ? comment.user.email : comment.user.name %></strong>
+      </p>
+      <p>
+        <%= l comment.created_at %>
+      </p>
+      <p>
+        <%= comment.comment %>
+      </p>
       <%= link_to t('views.common.edit', name: Comment.model_name.human.downcase), edit_report_comment_path(@report, comment) %>
       <%= button_to "Destroy this comment", report_comment_path(@report, comment), method: :delete %>
     </div>

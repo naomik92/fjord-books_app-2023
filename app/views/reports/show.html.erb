@@ -9,7 +9,8 @@
     <div>
       <p><strong><%= comment.user.name %></strong></p>
       <p><%= comment.comment %></p>
-      <%= button_to "Destroy this comment", report_comment_path(@report, comment), method: :delete, class: "btn btn-danger", form: { data: { turbo_confirm: "Are you sure?" } } %>
+      <%= link_to t('views.common.edit', name: Comment.model_name.human.downcase), edit_report_comment_path(@report, comment) %>
+      <%= button_to "Destroy this comment", report_comment_path(@report, comment), method: :delete %>
     </div>
   <% end %>
 <% else %>
@@ -17,7 +18,7 @@
 <% end %>
 
 <h2>Add a new comment</h2>
-<%= render partial: "comments/form", locals: { report: @report } %>
+<%= render partial: "comments/form", locals: { report: @report, comment: @report.comments.build } %>
 
 <nav class="page-nav">
   <%= link_to t('views.common.edit', name: Report.model_name.human.downcase), edit_report_path %> |

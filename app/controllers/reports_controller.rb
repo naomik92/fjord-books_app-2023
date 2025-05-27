@@ -17,7 +17,8 @@ class ReportsController < ApplicationController
   end
 
   def edit
-    set_report
+    # set_report
+    @report = Report.find(params[:id])
   end
 
   def create

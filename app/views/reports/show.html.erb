@@ -1,8 +1,12 @@
+<%# require 'debug' %>
+
 <h1><%= t('views.common.title_show', name: Report.model_name.human) %></h1>
 
 <div class="show-item">
   <%= render @report %>
 </div>
+
+<%# binding.break %>
 
 <% if @comments.any? %>
   <% @comments.each do |comment| %>
@@ -16,8 +20,8 @@
       <p>
         <%= comment.comment %>
       </p>
-      <%= link_to t('views.common.edit', name: Comment.model_name.human.downcase), edit_report_comment_path(@report, comment) %>
-      <%= button_to "Destroy this comment", report_comment_path(@report, comment), method: :delete %>
+      <%= link_to t('views.common.edit', name: Comment.model_name.human.downcase), edit_polymorphic_url([@commentable, comment]) %>
+      <%= button_to "Destroy this comment", polymorphic_path([@commentable, comment]), method: :delete %>
     </div>
   <% end %>
 <% else %>
@@ -25,9 +29,9 @@
 <% end %>
 
 <h2>Add a new comment</h2>
-<%= render partial: "comments/form", locals: { report: @report, comment: @report.comments.build } %>
+<%= render partial: "comments/form", locals: { commentable: @commentable, comment: @commentable.comments.build } %>
 
 <nav class="page-nav">
   <%= link_to t('views.common.edit', name: Report.model_name.human.downcase), edit_report_path %> |
-  <%= link_to t('views.common.back', name: i18n_pluralize(Report.model_name.human.downcase)), reports_path %>
+  <%= link_to t('views.common.back', name: i18n_pluralize(Report.model_name.human.downcase)), report_path %>
 </nav>

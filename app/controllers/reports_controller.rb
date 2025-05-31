@@ -9,7 +9,8 @@ class ReportsController < ApplicationController
 
   def show
     set_report
-    @comments = @report.comments
+    @commentable = Report.find(params[:id])
+    @comments = @commentable.comments
   end
 
   def new

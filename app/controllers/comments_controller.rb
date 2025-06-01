@@ -50,7 +50,11 @@ class CommentsController < ApplicationController
   private
 
   def set_commentable
-    @commentable = Report.find(params[:report_id])
+    if request.path[/\/(.*?)\//] == "/reports/"
+      @commentable = Report.find(params[:report_id])
+    else
+      @commentable = Book.find(params[:book_id])
+    end
   end
 
   def set_comment
@@ -64,6 +68,6 @@ class CommentsController < ApplicationController
   def correct_user
     comment = Comment.find(params[:id])
     user = User.find(comment.user_id)
-    redirect_to reports_path unless user == current_user
+    redirect_to user_path(user.id) unless user == current_user
   end
 end

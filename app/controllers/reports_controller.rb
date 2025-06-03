@@ -2,13 +2,13 @@
 
 class ReportsController < ApplicationController
   before_action :correct_user, only: %i[edit update destroy]
+  before_action :set_report, only: %i[show update destroy]
 
   def index
     @reports = Report.order(:id).page(params[:page])
   end
 
   def show
-    set_report
     @commentable = Report.find(params[:id])
     @comments = @commentable.comments
   end
@@ -18,7 +18,6 @@ class ReportsController < ApplicationController
   end
 
   def edit
-    # set_report
     @report = Report.find(params[:id])
   end
 
@@ -36,8 +35,6 @@ class ReportsController < ApplicationController
   end
 
   def update
-    set_report
-
     respond_to do |format|
       if @report.update(report_params)
         format.html { redirect_to report_url(@report), notice: t('controllers.common.notice_update', name: Report.model_name.human) }

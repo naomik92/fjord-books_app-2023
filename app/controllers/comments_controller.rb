@@ -2,16 +2,14 @@
 
 class CommentsController < ApplicationController
   before_action :correct_user, only: %i[edit update destroy]
-  before_action :set_commentable, only: %i[new create destroy]
-  before_action :set_comment, only: %i[destroy]
+  before_action :set_commentable, only: %i[new edit update create destroy]
+  before_action :set_comment, only: %i[edit update destroy]
 
-  def new
+  def new # いる？
     @comment = Comment.new
   end
 
   def edit
-    set_commentable
-    set_comment
   end
 
   def create
@@ -21,15 +19,12 @@ class CommentsController < ApplicationController
       if @comment.save
         format.html { redirect_to polymorphic_path(@commentable), notice: "Comment was successfully created." }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render "reports/show", status: :unprocessable_entity }
       end
     end
   end
 
   def update
-    set_commentable
-    set_comment
-
     respond_to do |format|
       if @comment.update(comment_params)
         format.html { redirect_to polymorphic_path(@commentable), notice: t('controllers.common.notice_update', name: Comment.model_name.human) }

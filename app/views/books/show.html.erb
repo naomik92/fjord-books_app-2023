@@ -4,28 +4,9 @@
   <%= render @book %>
 </div>
 
-<% if @comments.any? %>
-  <% @comments.each do |comment| %>
-    <div>
-      <p>
-        <strong><%= comment.user.name == "" ? comment.user.email : comment.user.name %></strong>
-      </p>
-      <p>
-        <%= l comment.created_at %>
-      </p>
-      <p>
-        <%= comment.comment %>
-      </p>
-      <%= link_to t('views.common.edit', name: Comment.model_name.human.downcase), edit_polymorphic_url([@commentable, comment]) %>
-      <%= button_to "Destroy this comment", polymorphic_path([@commentable, comment]), method: :delete %>
-    </div>
-  <% end %>
-<% else %>
-  <p>No comments found.</p>
-<% end %>
-
-<h2>Add a new comment</h2>
-<%= render partial: "comments/form", locals: { commentable: @commentable, comment: @commentable.comments.build } %>
+<div>
+  <%= render partial: "comments/comment", locals: {comments: @comments} %>
+</div>
 
 <nav class="page-nav">
   <%= link_to t('views.common.edit', name: Book.model_name.human.downcase), edit_book_path(@book) %> |

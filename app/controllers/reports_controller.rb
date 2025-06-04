@@ -67,5 +67,4 @@ class ReportsController < ApplicationController
     user = User.find(report.user_id)
     redirect_to reports_path unless user == current_user
   end
-
 end

@@ -2,15 +2,10 @@
 
 class CommentsController < ApplicationController
   before_action :correct_user, only: %i[edit update destroy]
-  before_action :set_commentable, only: %i[new edit update create destroy]
+  before_action :set_commentable, only: %i[edit update create destroy]
   before_action :set_comment, only: %i[edit update destroy]
 
-  def new # いる？
-    @comment = Comment.new
-  end
-
-  def edit
-  end
+  def edit; end
 
   def create
     @comment = @commentable.comments.build(comment_params)
@@ -19,7 +14,7 @@ class CommentsController < ApplicationController
       if @comment.save
         format.html { redirect_to polymorphic_path(@commentable), notice: t('controllers.common.notice_create', name: Comment.model_name.human) }
       else
-        format.html { render "reports/show", status: :unprocessable_entity }
+        format.html { render 'reports/show', status: :unprocessable_entity }
       end
     end
   end
@@ -45,11 +40,12 @@ class CommentsController < ApplicationController
   private
 
   def set_commentable
-    if request.path[/\/(.*?)\//] == "/reports/"
-      @commentable = Report.find(params[:report_id])
-    else
-      @commentable = Book.find(params[:book_id])
-    end
+    @commentable =
+      if request.path[%r{/(.*?)/}] == '/reports/'
+        Report.find(params[:report_id])
+      else
+        Book.find(params[:book_id])
+      end
   end
 
   def set_comment

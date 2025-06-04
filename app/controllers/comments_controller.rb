@@ -17,7 +17,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to polymorphic_path(@commentable), notice: "Comment was successfully created." }
+        format.html { redirect_to polymorphic_path(@commentable), notice: t('controllers.common.notice_create', name: Comment.model_name.human) }
       else
         format.html { render "reports/show", status: :unprocessable_entity }
       end
@@ -38,7 +38,7 @@ class CommentsController < ApplicationController
     @comment.destroy
 
     respond_to do |format|
-      format.html { redirect_to polymorphic_path(@commentable), notice: "Comment was successfully destroyed." }
+      format.html { redirect_to polymorphic_path(@commentable), notice: t('controllers.common.notice_destroy', name: Comment.model_name.human) }
     end
   end
 

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'debug'
 
 class ReportsController < ApplicationController
   before_action :set_report, only: %i[edit update destroy]
@@ -22,6 +23,7 @@ class ReportsController < ApplicationController
     @report = current_user.reports.new(report_params)
 
     if @report.save
+      @report.mention(@report)
       redirect_to @report, notice: t('controllers.common.notice_create', name: Report.model_name.human)
     else
       render :new, status: :unprocessable_entity
@@ -37,6 +39,8 @@ class ReportsController < ApplicationController
   end
 
   def destroy
+    delete_mention(@report)
+    
     @report.destroy
 
     redirect_to reports_url, notice: t('controllers.common.notice_destroy', name: Report.model_name.human)

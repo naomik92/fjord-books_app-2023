@@ -39,8 +39,8 @@ class ReportsController < ApplicationController
   end
 
   def destroy
-    delete_mention(@report)
-    
+    @report.delete_mention(@report)
+    binding.break
     @report.destroy
 
     redirect_to reports_url, notice: t('controllers.common.notice_destroy', name: Report.model_name.human)

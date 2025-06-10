@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require 'debug'
 require 'uri'
+
 class Report < ApplicationRecord
   belongs_to :user
   has_many :comments, as: :commentable, dependent: :destroy

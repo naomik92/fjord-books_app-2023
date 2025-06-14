@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   devise_for :users
   root to: 'books#index'
+  
   resources :books do
     resources :comments
   end
@@ -9,4 +10,14 @@ Rails.application.routes.draw do
   resources :reports do
     resources :comments
   end
+
+  # scope module: 'book' do
+  #   resources :comments
+  # end
+
+  # scope module: 'report' do
+  #   resources :comments
+  # end
+
+  get '*path', to: 'application#record_not_found'
 end

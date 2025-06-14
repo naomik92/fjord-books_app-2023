@@ -1,5 +1,0 @@
-ja:
-  views:
-    common:
-      unknown: "不明な%{name}"
-      not_found: "%{name}はありません"

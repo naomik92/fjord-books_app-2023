@@ -5,7 +5,7 @@
 </div>
 
 <div>
-  <%= render partial: "comments/comment", locals: {comments: @comments} %>
+  <%= render "comments/comments", comments: @book.comments %>
 </div>
 
 <nav class="page-nav">

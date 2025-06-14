@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class ReportsController < ApplicationController
+  before_action :set_report, only: %i[show edit update destroy]
   before_action :correct_user, only: %i[edit update destroy]
-  before_action :set_report, only: %i[show update destroy]
 
   def index
     @reports = Report.order(:id).page(params[:page])
@@ -10,7 +10,6 @@ class ReportsController < ApplicationController
 
   def show
     @commentable = Report.find(params[:id])
-    @comments = @commentable.comments
   end
 
   def new
@@ -23,7 +22,7 @@ class ReportsController < ApplicationController
 
   def create
     @report = Report.new(report_params)
-    @report.user_id = current_user.id
+    @report.user = current_user
 
     respond_to do |format|
       if @report.save
@@ -63,8 +62,7 @@ class ReportsController < ApplicationController
   end
 
   def correct_user
-    report = Report.find(params[:id])
-    user = User.find(report.user_id)
+    user = @report.user
     redirect_to reports_path unless user == current_user
   end
 end

@@ -11,7 +11,6 @@ class BooksController < ApplicationController
   # GET /books/1 or /books/1.json
   def show
     @commentable = Book.find(params[:id])
-    @comments = @commentable.comments
   end
 
   # GET /books/new

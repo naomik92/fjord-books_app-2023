@@ -24,7 +24,7 @@ ja:
         title: タイトル
         description: 内容
       comment:
-        comment: コメント
+        content: コメント
   
   time:
     formats:

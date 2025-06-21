@@ -11,7 +11,7 @@
         | <%= l comment.created_at %>
       </p>
       <p>
-        <%= comment.comment %>
+        <%= comment.content %>
       </p>
       <%= link_to t('views.common.edit', name: Comment.model_name.human.downcase), [:edit, @commentable, comment] %>
       <%= button_to t('views.common.destroy', name: Comment.model_name.human.downcase), [@commentable, comment], method: :delete %>
@@ -24,7 +24,7 @@
 <h2><%= t('views.common.new', name: Comment.model_name.human.downcase) %></h2>
 
 <% if @commentable.present? %>
-  <%= render "comments/form", commentable: @commentable, comment: @commentable.comments.build %>
+  <%= render "comments/form", commentable: @commentable, comment: @commentable.comments.build %> # 後で直す必要ありそう
 <% else %>
   <%= render "comments/form", commentable: @commentable, comment: @commentable.comments.build %>
 <% end %>

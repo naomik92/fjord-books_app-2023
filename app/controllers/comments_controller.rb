@@ -1,24 +1,21 @@
 # frozen_string_literal: true
-require 'debug'
-class CommentsController < ApplicationController
-  # before_action :set_commentable, only: %i[edit update create destroy]
-  before_action :set_comment, only: %i[edit update destroy]
-  before_action :correct_user, only: %i[edit update destroy]
 
-  def edit; end
+class CommentsController < ApplicationController
 
   def create
-    @comment = @commentable.comments.build(comment_params)
-    @comment.user = current_user
+    comment = @commentable.comments.build(comment_params)
+    comment.user = current_user
 
     respond_to do |format|
-      if @comment.save
+      if comment.save
         format.html { redirect_to @commentable, notice: t('controllers.common.notice_create', name: Comment.model_name.human) }
       else
-        format.html { render 'reports/show', status: :unprocessable_entity }
+        format.html { render :show, status: :unprocessable_entity }
       end
     end
   end
+
+  def edit; end
 
   def update
     respond_to do |format|
@@ -31,7 +28,8 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment.destroy
+    comment = @commentable.comments.find(params[:id])
+    comment.destroy
 
     respond_to do |format|
       format.html { redirect_to @commentable, notice: t('controllers.common.notice_destroy', name: Comment.model_name.human) }
@@ -40,22 +38,12 @@ class CommentsController < ApplicationController
 
   private
 
-  # def set_commentable
-  #   @commentable =
-  #     if request.path[%r{/(.*?)/}] == '/reports/'
-  #       Report.find(params[:report_id])
-  #     else
-  #       Book.find(params[:book_id])
-  #     end
-  # end
-
   def set_comment
-    binding.break
     @comment = @commentable.comments.find(params[:id])
   end
 
   def comment_params
-    params.require(:comment).permit(:comment)
+    params.require(:comment).permit(:content)
   end
 
   def correct_user

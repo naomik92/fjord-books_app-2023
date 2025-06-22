@@ -1,10 +1,9 @@
-<% require 'debug' %>
 <% if comments.any? %>
   <% comments.order(:created_at, :id).each do |comment| %>
     <div>
       <p>
         <% if comment.user.present? %>
-          <strong><%= comment.user.name == "" ? comment.user.email : comment.user.name %></strong>
+          <strong><%= show_user(comment) %></strong>
         <% else %>
           <strong><%= t('views.common.unknown', name: User.model_name.human.downcase) %></strong>
         <% end %>
@@ -23,8 +22,4 @@
 
 <h2><%= t('views.common.new', name: Comment.model_name.human.downcase) %></h2>
 
-<% if @commentable.present? %>
-  <%= render "comments/form", commentable: @commentable, comment: @commentable.comments.build %> # 後で直す必要ありそう
-<% else %>
-  <%= render "comments/form", commentable: @commentable, comment: @commentable.comments.build %>
-<% end %>
+<%= render "comments/form", commentable: @commentable, comment: @commentable.comments.build %>

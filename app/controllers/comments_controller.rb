@@ -1,20 +1,6 @@
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
-
-  def create
-    comment = @commentable.comments.build(comment_params)
-    comment.user = current_user
-
-    respond_to do |format|
-      if comment.save
-        format.html { redirect_to @commentable, notice: t('controllers.common.notice_create', name: Comment.model_name.human) }
-      else
-        format.html { render :show, status: :unprocessable_entity }
-      end
-    end
-  end
-
   def edit; end
 
   def update
@@ -48,6 +34,6 @@ class CommentsController < ApplicationController
 
   def correct_user
     user = @comment.user
-    redirect_to user_path(user.id) unless user == current_user
+    render file: Rails.root.join('public/404.html'), status: :not_found if user != current_user
   end
 end

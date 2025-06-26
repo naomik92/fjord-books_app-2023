@@ -36,9 +36,9 @@ class ReportsController < ApplicationController
   def update
     respond_to do |format|
       if @report.update(report_params)
-        format.html { redirect_to report_url(@report), notice: t('controllers.common.notice_update', name: Report.model_name.human) }
+        redirect_to report_url(@report), notice: t('controllers.common.notice_update', name: Report.model_name.human)
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        render :edit, status: :unprocessable_entity
       end
     end
   end
@@ -47,7 +47,7 @@ class ReportsController < ApplicationController
     @report.destroy
 
     respond_to do |format|
-      format.html { redirect_to reports_url, notice: t('controllers.common.notice_destroy', name: Report.model_name.human) }
+      redirect_to reports_url, notice: t('controllers.common.notice_destroy', name: Report.model_name.human)
     end
   end
 

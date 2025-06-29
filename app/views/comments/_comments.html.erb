@@ -3,11 +3,11 @@
     <div>
       <p>
         <% if comment.user.present? %>
-          <strong><%= show_user(comment) %></strong>
+          <strong><%= find_username(comment.user) %></strong>
         <% else %>
           <strong><%= t('views.common.unknown', name: User.model_name.human.downcase) %></strong>
         <% end %>
-        | <%= l comment.created_at %>
+        | <%= l comment.created_at, format: :long %>
       </p>
       <p>
         <%= comment.content %>

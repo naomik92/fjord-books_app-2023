@@ -25,7 +25,3 @@ ja:
         description: 内容
       comment:
         content: コメント
-  
-  time:
-    formats:
-      default: "%Y年%m月%d日(%a) %H:%M"

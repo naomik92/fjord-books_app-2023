@@ -40,8 +40,7 @@ class Books::CommentsController < ApplicationController
   end
 
   def set_comment
-    @comments = @commentable.comments.where(user_id: current_user.id)
-    @comment = @comments.find(params[:id])
+    @comment = @commentable.comments.where(user_id: current_user.id).find(params[:id])
   end
 
   def comment_params

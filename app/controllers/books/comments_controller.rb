@@ -16,20 +16,19 @@ class Books::CommentsController < ApplicationController
   end
 
   def edit
-    render 'comments/edit'
+    render 'shared/comments/edit'
   end
 
   def update
     if @comment.update(comment_params)
       redirect_to @commentable, notice: t('controllers.common.notice_update', name: Comment.model_name.human)
     else
-      render 'comments/edit', status: :unprocessable_entity
+      render 'shared/comments/edit', status: :unprocessable_entity
     end
   end
 
   def destroy
-    comment = @commentable.comments.find(params[:id])
-    comment.destroy
+    @comment.destroy
     redirect_to @commentable, notice: t('controllers.common.notice_destroy', name: Comment.model_name.human)
   end
 

@@ -5,12 +5,12 @@
 </div>
 
 <div>
-  <%= render "comments/comments", comments: @report.comments %>
+  <%= render "shared/comments/comments", comments: @report.comments %>
 </div>
 
 <nav class="page-nav">
   <%= link_to t('views.common.edit', name: Report.model_name.human.downcase), edit_report_path %> |
-  <%= link_to t('views.common.back', name: i18n_pluralize(Report.model_name.human.downcase)), report_path %>
+  <%= link_to t('views.common.back', name: i18n_pluralize(Report.model_name.human.downcase)), reports_path %>
 
   <%= button_to t('views.common.destroy', name: Report.model_name.human.downcase), @report, method: :delete %>
 </nav>

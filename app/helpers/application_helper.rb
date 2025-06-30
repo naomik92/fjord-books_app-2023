@@ -15,7 +15,7 @@ module ApplicationHelper
     I18n.locale == :ja ? "#{count}件の#{t('views.common.error')}" : pluralize(count, t('views.common.error'))
   end
 
-  def find_username(user)
+  def user_name_or_email(user)
     user.name.presence || user.email
   end
 end

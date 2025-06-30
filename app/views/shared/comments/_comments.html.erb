@@ -3,7 +3,7 @@
     <div>
       <p>
         <% if comment.user.present? %>
-          <strong><%= find_username(comment.user) %></strong>
+          <strong><%= user_name_or_email(comment.user) %></strong>
         <% else %>
           <strong><%= t('views.common.unknown', name: User.model_name.human.downcase) %></strong>
         <% end %>
@@ -22,4 +22,4 @@
 
 <h2><%= t('views.common.new', name: Comment.model_name.human.downcase) %></h2>
 
-<%= render "comments/form", commentable: @commentable, comment: @commentable.comments.build %>
+<%= render "shared/comments/form", commentable: @commentable, comment: @commentable.comments.build %>

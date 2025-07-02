@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require 'debug'
 require 'uri'
 
 class Report < ApplicationRecord
@@ -22,11 +21,7 @@ class Report < ApplicationRecord
     created_at.to_date
   end
 
-  def mention(report)
-    urls = report.content.scan(/http:\/\/localhost:3000\/reports\/\d+/)
-    ids = urls.map do |url|
-      URI.parse(url).path.match(/\d+/).to_s
-    end
+  def create_mention(ids)
     if ids.size != 0
       ids.each do |id|
         if Report.find(id)
@@ -34,18 +29,20 @@ class Report < ApplicationRecord
         end
       end
     end
-
   end
 
-  def delete_mention(report)
-    urls = report.content.scan(/http:\/\/localhost:3000\/reports\/\d+/)
-    ids = urls.map do |url|
-      URI.parse(url).path.match(/\d+/).to_s
-    end
+  def delete_mention(ids)
     if ids.size != 0
       ids.each do |id|
         self.mentions.find_or_create_by(mention_report_id: id).destroy
       end
     end
+  end
+
+  def mentioning_ids(report)
+    urls = report.content.scan(/http:\/\/localhost:3000\/reports\/\d+/)
+    ids = urls.map do |url|
+      URI.parse(url).path.match(/\d+/).to_s
+    end    
   end
 end

@@ -19,6 +19,3 @@
 <% else %>
   <p><%= t('views.common.not_found', name: Comment.model_name.human.downcase) %></p>
 <% end %>
-<h2><%= t('views.common.new', name: Comment.model_name.human.downcase) %></h2>
-
-<%= render "shared/comments/form", commentable: @commentable, comment: @commentable.comments.build %>

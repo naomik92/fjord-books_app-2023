@@ -5,12 +5,7 @@
 </div>
 
 <div>
-  <%= render "shared/comments/comments", comments: @report.comments %>
-</div>
-
-<div>
-  <h2><%= t('views.common.new', name: Comment.model_name.human.downcase) %></h2>
-  <%= render "shared/comments/form", commentable: @report, comment: @report.comments.build %>
+  <%= render "shared/comments/index", commentable: @report %>
 </div>
 
 <nav class="page-nav">

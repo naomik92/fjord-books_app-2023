@@ -1,0 +1,10 @@
+<%= form_with(model: [comment.commentable, comment]) do |form| %>
+  <div>
+    <%= form.label :content, style: "display: block" %>
+    <%= form.text_area :content, required: true %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -6,5 +6,5 @@ class Mention < ApplicationRecord
 
   validates :report_id, presence: true
   validates :mention_report, presence: true
-  validates_uniqueness_of :report_id, scope: :mention_report_id
+  validates :report_id, uniqueness: { scope: :mention_report_id }
 end

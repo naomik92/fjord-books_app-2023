@@ -23,18 +23,14 @@ class Report < ApplicationRecord
   end
 
   def create_mention(ids)
-    return if ids.empty?
-
     ids.each do |id|
       mentions.find_or_create_by(mention_report_id: id) if Report.find(id)
     end
   end
 
   def destroy_mention(ids)
-    return if ids.empty?
-
     ids.each do |id|
-      mentions.find_or_create_by(mention_report_id: id).destroy
+      mentions.find_or_create_by(mention_report_id: id).destroy!
     end
   end
 

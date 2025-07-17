@@ -41,9 +41,31 @@ class Report < ApplicationRecord
     end
   end
 
-  def update_mention(before_ids, report)
-    after_ids = mentioning_ids(report)
+  def update_mentions(before_ids)
+    after_ids = mentioning_ids(self)
     create_mention(after_ids - before_ids)
     destroy_mention(before_ids - after_ids)
+  end
+
+  def save_report_and_mentions(report)
+    ActiveRecord::Base.transaction do
+      report.save!
+      ids = mentioning_ids(report)
+      create_mention(ids)
+    end
+  end
+
+  def update_report_and_mentions(report_params)
+    ActiveRecord::Base.transaction do
+      before_ids = mentioning_ids(self)
+      self.update!(report_params)
+      update_mentions(before_ids)
+    end
+  end
+
+  private
+
+  def report_params
+    params.require(:report).permit(:title, :content)
   end
 end

@@ -58,8 +58,14 @@ class Report < ApplicationRecord
   def update_report_and_mentions(report_params)
     ActiveRecord::Base.transaction do
       before_ids = mentioning_ids(self)
-      self.update!(report_params)
+      update!(report_params)
       update_mentions(before_ids)
+    end
+  end
+
+  def destroy_report_and_mentions(report)
+    ActiveRecord::Base.transaction do
+      report.destroy!
     end
   end
 

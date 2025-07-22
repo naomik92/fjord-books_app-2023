@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'debug'
+
 require 'uri'
 
 class Report < ApplicationRecord
@@ -45,16 +45,15 @@ class Report < ApplicationRecord
     after_ids = mentioning_ids(self)
     destroy_mention(before_ids)
     create_mention(after_ids)
-    # create_mention(after_ids - before_ids)
-    # destroy_mention(before_ids - after_ids)
   end
 
   def save_report_and_mentions(report)
     ActiveRecord::Base.transaction do
+      before_ids = mentioning_ids(self)
       report.save
       raise ActiveRecord::Rollback unless report.save
-      ids = mentioning_ids(report)
-      create_mention(ids)
+
+      update_mentions(before_ids)
     end
   end
 
@@ -63,6 +62,7 @@ class Report < ApplicationRecord
       before_ids = mentioning_ids(self)
       update(report_params)
       raise ActiveRecord::Rollback unless update(report_params)
+
       update_mentions(before_ids)
     end
   end

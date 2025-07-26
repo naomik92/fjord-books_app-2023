@@ -34,37 +34,38 @@ class Report < ApplicationRecord
     end
   end
 
-  def mentioning_ids(report)
-    urls = report.content.scan(%r{http://localhost:3000/reports/\d+})
+  def mentioning_ids_(content)
+    urls = content.scan(%r{http://localhost:3000/reports/\d+})
     urls.map do |url|
       URI.parse(url).path.match(/\d+/).to_s
     end
   end
 
-  def update_mentions(before_ids)
-    after_ids = mentioning_ids(self)
+  def update_mentions_(report_params)
+    before_ids = mentioning_ids_(content)
+    after_ids = mentioning_ids_(report_params['content'])
     destroy_mention(before_ids)
     create_mention(after_ids)
   end
 
   def save_report_and_mentions(report)
+    all_vaild = true
     ActiveRecord::Base.transaction do
-      before_ids = mentioning_ids(self)
-      report.save
-      raise ActiveRecord::Rollback unless report.save
-
-      update_mentions(before_ids)
+      all_vaild &= report.save
+      create_mention(mentioning_ids_(content))
+      raise ActiveRecord::Rollback unless all_vaild
     end
+    all_vaild
   end
 
   def update_report_and_mentions(report_params)
+    all_valid = true
     ActiveRecord::Base.transaction do
-      before_ids = mentioning_ids(self)
-      update(report_params)
-      raise ActiveRecord::Rollback unless update(report_params)
-
-      update_mentions(before_ids)
+      update_mentions_(report_params)
+      all_valid &= update(report_params)
+      raise ActiveRecord::Rollback unless all_valid
     end
+    all_valid
   end
 
   private

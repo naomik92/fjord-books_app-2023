@@ -48,27 +48,25 @@ class Report < ApplicationRecord
     create_mention(after_ids)
   end
 
-  def create_report_and_mentions(report_params)
+  def save_report_and_mentions(content)
     all_vaild = true
     ActiveRecord::Base.transaction do
-      all_vaild = self.save
+      all_vaild = save
       all_valid = update_mentions(content)
       raise ActiveRecord::Rollback unless all_vaild
     end
     all_vaild
   end
 
+  def create_report_and_mentions
+    save_report_and_mentions(content)
+  end
+
   def update_report_and_mentions(report_params)
-    before_content = self.content
+    before_content = content
     self.title = report_params[:title]
     self.content = report_params[:content]
-    all_valid = true
-    ActiveRecord::Base.transaction do
-      all_valid = self.save
-      all_valid = update_mentions(before_content)
-      raise ActiveRecord::Rollback unless all_valid
-    end
-    all_valid
+    save_report_and_mentions(before_content)
   end
 
   private

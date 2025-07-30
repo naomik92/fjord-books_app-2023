@@ -23,14 +23,14 @@ class Report < ApplicationRecord
   end
 
   def create_mention(ids)
-    ids.each do |id|
+    ids.all? do |id|
       mentions.find_or_create_by(mention_report_id: id) if Report.find(id)
     end
   end
 
   def destroy_mention(ids)
-    ids.each do |id|
-      mentions.find_or_create_by(mention_report_id: id).destroy!
+    ids.all? do |id|
+      mentions.find_or_create_by(mention_report_id: id).destroy! # find_or_create_byでないのでは？findあたりか？
     end
   end
 
@@ -41,28 +41,31 @@ class Report < ApplicationRecord
     end
   end
 
-  def update_mentions(report_params)
+  def update_mentions(content)
     before_ids = mentioning_ids(content)
-    after_ids = mentioning_ids(report_params['content'])
+    after_ids = mentioning_ids(self.content)
     destroy_mention(before_ids)
     create_mention(after_ids)
   end
 
-  def save_report_and_mentions(report)
+  def create_report_and_mentions(report_params)
     all_vaild = true
     ActiveRecord::Base.transaction do
-      all_vaild &= report.save
-      create_mention(mentioning_ids(content))
+      all_vaild = self.save
+      all_valid = update_mentions(content)
       raise ActiveRecord::Rollback unless all_vaild
     end
     all_vaild
   end
 
   def update_report_and_mentions(report_params)
+    before_content = self.content
+    self.title = report_params[:title]
+    self.content = report_params[:content]
     all_valid = true
     ActiveRecord::Base.transaction do
-      update_mentions(report_params)
-      all_valid &= update(report_params)
+      all_valid = self.save
+      all_valid = update_mentions(before_content)
       raise ActiveRecord::Rollback unless all_valid
     end
     all_valid

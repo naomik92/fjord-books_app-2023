@@ -51,8 +51,7 @@ class Report < ApplicationRecord
   def save_report_and_mentions(content)
     all_vaild = true
     ActiveRecord::Base.transaction do
-      all_vaild = save
-      all_valid = update_mentions(content)
+      all_vaild = save && update_mentions(content)
       raise ActiveRecord::Rollback unless all_vaild
     end
     all_vaild

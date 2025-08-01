@@ -24,7 +24,7 @@ class Report < ApplicationRecord
 
   def create_mention(ids)
     ids.all? do |id|
-      mentions.find_or_create_by(mention_report_id: id) if Report.find(id)
+      mentions.find_or_create_by(mention_report_id: id) if Report.find(id) && id != self.id.to_s
     end
   end
 

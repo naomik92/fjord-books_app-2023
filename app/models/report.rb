@@ -30,7 +30,7 @@ class Report < ApplicationRecord
 
   def destroy_mention(ids)
     ids.all? do |id|
-      mentions.find_or_create_by(mention_report_id: id).destroy! # find_or_create_byでないのでは？findあたりか？
+      mentions.find_or_create_by(mention_report_id: id).destroy!
     end
   end
 
@@ -44,8 +44,7 @@ class Report < ApplicationRecord
   def update_mentions(content)
     before_ids = mentioning_ids(content)
     after_ids = mentioning_ids(self.content)
-    destroy_mention(before_ids)
-    create_mention(after_ids)
+    destroy_mention(before_ids) && create_mention(after_ids)
   end
 
   def save_report_and_mentions(content)
@@ -55,17 +54,6 @@ class Report < ApplicationRecord
       raise ActiveRecord::Rollback unless all_vaild
     end
     all_vaild
-  end
-
-  def create_report_and_mentions
-    save_report_and_mentions(content)
-  end
-
-  def update_report_and_mentions(report_params)
-    before_content = content
-    self.title = report_params[:title]
-    self.content = report_params[:content]
-    save_report_and_mentions(before_content)
   end
 
   private

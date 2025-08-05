@@ -28,7 +28,7 @@ class ReportsController < ApplicationController
   end
 
   def update
-    @report.assign_attributes(title: report_params[:title], content: report_params[:content])
+    @report.assign_attributes(report_params)
     if @report.save_report_and_mentions(@report.content_was)
       redirect_to @report, notice: t('controllers.common.notice_update', name: Report.model_name.human)
     else

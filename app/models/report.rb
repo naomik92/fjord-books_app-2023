@@ -24,7 +24,7 @@ class Report < ApplicationRecord
 
   def create_mention(ids)
     ids.all? do |id|
-      mentions.find_or_create_by(mention_report_id: id) if Report.find(id) && id != self.id.to_s
+      mentions.find_or_create_by(mention_report_id: id) if Report.where(id:).where.not(id: self.id).exists?
     end
   end
 
@@ -44,7 +44,8 @@ class Report < ApplicationRecord
   def update_mentions(content)
     before_ids = mentioning_ids(content)
     after_ids = mentioning_ids(self.content)
-    destroy_mention(before_ids) && create_mention(after_ids)
+    destroy_mention(before_ids)
+    create_mention(after_ids)
   end
 
   def save_report_and_mentions(content)

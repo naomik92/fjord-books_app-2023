@@ -1,0 +1,14 @@
+<div>
+  <h3><%= t('.mentioned_reports') %></h3>
+  <% if reports = report.mentioned_reports.presence %>
+    <ul>
+      <% report.mentioned_reports.order(:created_at, :id).each do |report| %>
+        <li>
+          <%= link_to report.title, report %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    (<%= t('.no_mentioned') %>)
+  <% end %>
+</div>

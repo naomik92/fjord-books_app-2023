@@ -24,7 +24,6 @@ class Report < ApplicationRecord
 
   def create_mention(ids)
     ids.all? do |id|
-      binding.break
       mentions.find_or_create_by(mention_report_id: id) if Report.where(id:).where.not(id: self.id).exists?
     end
   end

@@ -2,10 +2,15 @@
 
 report:
   user: alice
-  title: MyString
-  content: MyText
+  title: 日報1
+  content: 日報の参照なし
 
-# two:
-#   user: two
-#   title: MyString
-#   content: MyText
+report_02:
+  user: alice
+  title: 日報2
+  content: 日報の参照あり http://localhost:3000/reports/70219655
+
+report_03:
+  user: bob
+  title: 日報3
+  content: 日報の参照なし  

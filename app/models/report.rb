@@ -56,10 +56,4 @@ class Report < ApplicationRecord
     end
     all_vaild
   end
-
-  private
-
-  def report_params
-    params.require(:report).permit(:title, :content)
-  end
 end

@@ -42,7 +42,7 @@ class ReportTest < ActiveSupport::TestCase
 
   test '#update_mentions' do
     report = reports(:report02)
-    report.content = '日報を参照 http://localhost:3000/reports/363103885'
+    report.content = '日報を参照 http://localhost:3000/reports/817969383'
     assert report.update_mentions(report.content)
   end
 

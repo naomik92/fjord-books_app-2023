@@ -38,8 +38,8 @@ class ReportsTest < ApplicationSystemTestCase
     click_link 'この日報を編集'
     assert_text '日報の編集'
 
-    fill_in 'タイトル', with: @report.title
-    fill_in '内容', with: @report.content
+    fill_in 'タイトル', with: '更新後のタイトル'
+    fill_in '内容', with: '更新後の内容'
     click_button '更新する'
 
     assert_text '日報が更新されました。'

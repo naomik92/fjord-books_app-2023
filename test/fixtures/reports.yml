@@ -1,11 +1,16 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-# one:
-#   user: one
-#   title: MyString
-#   content: MyText
+report:
+  user: alice
+  title: 日報1
+  content: 日報の参照なし
 
-# two:
-#   user: two
-#   title: MyString
-#   content: MyText
+report02:
+  user: alice
+  title: 日報2
+  content: 日報の参照あり http://localhost:3000/reports/70219655
+
+report03:
+  user: bob
+  title: 日報3
+  content: 日報の参照なし

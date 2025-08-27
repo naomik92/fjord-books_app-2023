@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class BooksTest < ApplicationSystemTestCase
   setup do
     @book = books(:one)
-  
+
     visit root_url
     fill_in 'Eメール', with: 'alice@example.com'
     fill_in 'パスワード', with: 'BFjm37yU2vAiV7FM'
@@ -18,7 +18,7 @@ class BooksTest < ApplicationSystemTestCase
     assert_selector 'h1', text: '本の一覧'
   end
 
-  test 'should create book' do
+  test 'creating a book' do
     visit books_url
     click_on '本の新規作成'
 
@@ -30,7 +30,7 @@ class BooksTest < ApplicationSystemTestCase
     click_on '本の一覧に戻る'
   end
 
-  test 'should update Book' do
+  test 'updating a Book' do
     visit book_url(@book)
     click_on 'この本を編集', match: :first
 
@@ -42,7 +42,7 @@ class BooksTest < ApplicationSystemTestCase
     click_on '本の一覧に戻る'
   end
 
-  test 'should destroy Book' do
+  test 'destroying a Book' do
     visit book_url(@book)
     click_on 'この本を削除', match: :first
 

@@ -16,4 +16,11 @@ class ReportTest < ActiveSupport::TestCase
     report = reports(:report)
     assert_equal Time.zone.today, report.created_on
   end
+
+  test '#save_mentions' do
+    report = reports(:report02)
+    # ids = ['70219655']
+    report.save
+    assert_equal [reports(:report)], report.mentioning_reports.to_a
+  end
 end

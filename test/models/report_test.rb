@@ -19,7 +19,6 @@ class ReportTest < ActiveSupport::TestCase
 
   test '#save_mentions' do
     report = reports(:report02)
-    # ids = ['70219655']
     report.save
     assert_equal [reports(:report)], report.mentioning_reports.to_a
   end

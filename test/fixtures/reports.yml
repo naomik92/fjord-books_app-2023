@@ -1,6 +1,6 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-report:
+report01:
   user: alice
   title: 日報1
   content: 日報の参照なし
@@ -8,7 +8,7 @@ report:
 report02:
   user: alice
   title: 日報2
-  content: 日報の参照あり http://localhost:3000/reports/70219655
+  content: 日報の参照あり http://localhost:3000/reports/516905418
 
 report03:
   user: bob

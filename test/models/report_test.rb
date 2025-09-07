@@ -8,11 +8,11 @@ class ReportTest < ActiveSupport::TestCase
   end
 
   test '#editable?' do
-    report_01 = Report.new(user_id: 663665735)
-    assert report_01.editable?(@user)
+    report1 = Report.new(user_id: @user.id, title: 'タイトル', content: '日報の内容')
+    assert report1.editable?(@user)
 
-    report_02 = Report.new(user_id: 100000000)
-    refute report_02.editable?(@user)
+    report2 = Report.new(user_id: '123456789', title: 'タイトル', content: '日報の内容')
+    assert_not report2.editable?(@user)
   end
 
   test '#created_on' do
@@ -20,21 +20,24 @@ class ReportTest < ActiveSupport::TestCase
   end
 
   test '#save_mentions' do
-    report_11 = Report.new(user_id: 902541635, title: 'タイトル', content: '日報の言及なし')
-    report_11.save
-    assert_equal [], report_11.mentioning_reports.to_a
+    report10 = Report.new(user_id: @user.id, title: 'タイトル', content: '言及される日報')
+    report10.save
 
-    report_12 = Report.new(user_id: 902541635, title: 'タイトル', content: 'http://localhost:3000/reports/516905418')
-    report_12.save
-    assert_equal [reports(:report01)], report_12.mentioning_reports.to_a
+    report11 = Report.new(user_id: @user.id, title: 'タイトル', content: '日報の言及なし')
+    report11.save
+    assert_equal [], report11.mentioning_reports.to_a
 
-    report_11.update(title: 'タイトル', content: 'http://localhost:3000/reports/516905418')
-    assert_equal [reports(:report01)], report_11.mentioning_reports.to_a
+    report12 = Report.new(user_id: @user.id, title: 'タイトル', content: "http://localhost:3000/reports/#{report10.id}")
+    report12.save
+    assert_equal [report10], report12.mentioning_reports.to_a
 
-    report_12.update(title: 'タイトル', content: '日報の言及なし')
-    assert_equal [], report_12.reload.mentioning_reports.to_a
+    report11.update(title: 'タイトル', content: "http://localhost:3000/reports/#{report10.id}")
+    assert_equal [report10], report11.mentioning_reports.to_a
 
-    report_11.destroy
-    refute_includes reports(:report01).mentioned_reports, report_11
+    report12.update(title: 'タイトル', content: '日報の言及なし')
+    assert_equal [], report12.reload.mentioning_reports.to_a
+
+    report11.destroy
+    assert_not_includes report10.mentioned_reports, report11
   end
 end
